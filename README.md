@@ -170,16 +170,16 @@ git push -u origin master
 
 ### 2 - Setup inicial da aplicação(Back-End):
 
-- [x] - Criando a pasta Blitz;
+- [x] - Acessar a pasta back-task-list já criada anteriormente;
 
 ```console
-mkdir blitz-task-list-trybe
+cd back-task-list
 ```
 
-- [x] - Iniciando o git dentro da pasta blitz-task-list-trybe;
+- [x] - Iniciando o git dentro da pasta back-task-list;
 
 ```console
-git init
+git init -y
 ```
 
 - [x] - Inicializando um arquivo json na raiz de blitz-task-list-trybe;
