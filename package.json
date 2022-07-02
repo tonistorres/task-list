@@ -1,0 +1,23 @@
+{
+  "name": "task-list",
+  "version": "1.0.0",
+  "description": "![List Task](./task.jpg)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonistorres/task-list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tonistorres/task-list/issues"
+  },
+  "homepage": "https://github.com/tonistorres/task-list#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^4.1.3"
+  }
+}
