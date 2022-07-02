@@ -63,9 +63,112 @@ Código e componentes reutilizados;
 - [x] - Ter um linter configurado;
 - [x] - O projeto deverá ser entregue via repositório pessoal no GitHub (utilize boas práticas de criação/nomeação de branches, além de mensagens de commits bem descritas e commits com um escopo nítido).
 
+### 1 - Configurações gerais pasta:
 
+- [x] - Iniciando criando a pastas task-list;
+  
+  ```console
+  mkdir task-list
+  ```
 
-### 1 - Setup inicial da aplicação(Back-End):
+- [x] - Iniciando um arquivo package.json pois irei fazer o versionamento da aplicação fora das pastas back e front, por esse motivo vou instalar um versionador de commits ( "git-commit-msg-linter": "^4.1.3") e um executável de vários comando simultâneamente (concurrently); 
+
+```console
+npm init -y
+npm i concurrently
+```
+
+- [x] - adicionando inicialmente alguns scripts utilitários; 
+
+```json
+"scripts": {
+    "dev": "concurrently \"npm run stopallct\" \"npm run delallct\" \"npm run compose:up\"",
+    "stopallct": "docker stop $(docker ps -a -q)",
+    "delallct": "docker rm $(docker ps -a -q)",
+    "delallimg": "docker rmi $(docker images -q)",
+    "compose:up": "docker-compose up",
+    "compose:down": "docker-compose up -d",
+    "nodekill": "killall node",
+    "mysqlexist": "mysql -V",
+    "mysqlstatus": "sudo systemctl status mysql  ",
+    "mysqlrestart": "sudo systemctl restart mysql",
+    "mysqlstop": "sudo systemctl stop mysql"
+  },
+```
+
+- [x] - Criando arquivo .gitignore e adicionando arquivos e pastas que não devem subir para ambiente de produção;
+
+```console
+node_modules
+.env
+```
+
+- [x] - Criando arquivo .env que conterá as variáveis de ambiente que serão acessadas pelo docker posteriormente;
+
+```console
+FRONT_PORT=xablau
+BACK_PORT=9999
+DB_USER=xablau
+DB_PASS_WORD=xablau
+BANCO_DADOS=dbnomebanco
+```
+
+- [x] - Criando um arquivo README.MD onde será documentado todo seu trabalho;
+
+```console
+touch README.MD
+```
+
+- [x] - Criando o arquivo docker-compose-up. Nesse ponto irei compartilhar um docker-compose muito do meu amigo presidente Gabriel Silvestre, esse docker compose ele cria e conectar 03(três) containers / serviços (banco:mysql, front-end e back-end);
+
+- [Link GitHub Gabriel Silvestre](https://gist.github.com/gabrielh-silvestre/624a3c6b9de184c1b12572996e3a68a7)
+
+- [x] - Sobre as branchs para o desenvolvimento da aplicação levando em consideração o tamanho do projeto conterá as ramificações abaixo relacionadas;
+
+<ul>
+    <li>master</li>
+    <li>front-implements-app</li>
+    <li>back-implements-app</li>
+</ul>
+
+- [x] - Criando a pasta back-task-list;
+
+```console
+mkdir back-task-list
+```
+
+- [x] - criando a pasta app-task-list (front);
+
+```console
+npx create-react-app app-task-list
+```
+
+<ul>
+<li> Como irei trabalhar com o versionamento fora da pasta app-task-list, irei excluir o versionador que é criado automaticamente com o comando npx create-react-app</li>
+</ul>
+
+```console
+rm -rf .git
+rm -rf .gitignore
+```
+- [x] - Irei lincar meu git local ao repositório do github já criado;
+
+```console
+git@github.com:xablau/task-list.git
+```
+
+<ul>
+<li> Enviar para branch master do github o projeto com as configurações iniciais</li>
+</ul>
+
+```console
+git status
+git add .
+git commit -m"build: configurações iniciais projeto"
+git push -u origin master
+```
+
+### 2 - Setup inicial da aplicação(Back-End):
 
 - [x] - Criando a pasta Blitz;
 

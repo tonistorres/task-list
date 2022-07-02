@@ -1,0 +1,69 @@
+version: '3.9'
+services:
+  frontend:
+    image: node:16-alpine
+   # command: npm start  # ou npm start o command só vai ser executado no final
+    restart: on-failure
+    working_dir: /app/frontend # so existe no final
+    volumes:
+      - ./app-task-list:/app/frontend
+    env_file:
+      - .env  
+    ports:
+      - ${FRONT_PORT}:3000
+    environment:
+      - REACT_APP_BACK_PORT=${BACK_PORT}
+      - REACT_APP_BACK_HOST=backend
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'lsof', '-t', '-i:3000'] # Caso utilize outra porta interna para o front, altere ela aqui também
+      timeout: 10s
+      retries: 10
+  backend:
+    image: node:16-alpine
+    #command: npm start
+    restart: on-failure
+    working_dir: /app/backend
+    volumes:
+      - ./back-task-list:/app/backend
+    env_file:
+      - .env  
+    ports:
+      - ${BACK_PORT}:3001
+    tty: true
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - PORT=${BACK_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS_WORD}
+      - DB_HOST=mysql
+      - DB_NAME=${BANCO_DADOS}
+      - DB_PORT=3002
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também
+      timeout: 10s
+      retries: 5
+  mysql:
+    image: mysql:8.0.21
+    container_name: db
+    env_file:
+      - .env 
+    ports:
+      - 3002:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASS_WORD}
+      # - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - MYSQL_DATABASE=${BANCO_DADOS}
+    restart: 'always'
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 30s  
+    cap_add:
+      - SYS_NICE # Deve omitir alertas menores
