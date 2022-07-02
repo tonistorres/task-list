@@ -271,19 +271,14 @@ npm init -y
       "plugin:mocha/recommended",
       "airbnb-typescript/base"
     ],
+    
     "parser": "@typescript-eslint/parser",
-    "overrides": [
-      {
-        "files": [
-          "*.ts"
-        ]
-      }
-    ],
     "parserOptions": {
       "ecmaVersion": 2019,
       "sourceType": "module",
-      "project": "./tsconfig.json"
+      "project": "**/tsconfig.json"
     },
+
     "plugins": [
       "@typescript-eslint",
       "sonarjs",
@@ -399,10 +394,32 @@ npm init -y
     }
   }
 
+```
+- [x] - Configurando o compilador TypeScript, rode o comando abaixo:
+
+```console
+tsc --init
+```
+- [x] - Substitua a configuração inicial pela explicitada logo abaixo:
+
+```console
+{
+  "compilerOptions": {
+   "target": "es2016",                                 
+   "module": "commonjs",
+   "rootDir": "./",
+   "outDir": "./build",
+   "preserveConstEnums": true,
+   "esModuleInterop": true,
+   "forceConsistentCasingInFileNames": true,
+   "strict": true,
+   "skipLibCheck": true
+ },
+ "include":["**/*"], /* aqui estamos incluindo todos os arquivos dentro da pasta src */
+ "exclude": ["node_modules", "**/*.spec.ts"] /* aqui estamos excluindo a pasta node_modules e os arquivos de teste */
+}
 
 ```
-
-
 
 ###  Ferramentas e pacotes que utilizaremos no desenvolvimento da aplicação back-end:
 

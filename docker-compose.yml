@@ -2,7 +2,7 @@ version: '3.9'
 services:
   frontend:
     image: node:16-alpine
-   # command: npm start  # ou npm start o command só vai ser executado no final
+    command: npm start  # ou npm start o command só vai ser executado no final
     restart: on-failure
     working_dir: /app/frontend # so existe no final
     volumes:
@@ -23,7 +23,7 @@ services:
       retries: 10
   backend:
     image: node:16-alpine
-    #command: npm start
+    command: npm start
     restart: on-failure
     working_dir: /app/backend
     volumes:

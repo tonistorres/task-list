@@ -13,19 +13,14 @@
       "plugin:mocha/recommended",
       "airbnb-typescript/base"
     ],
+    
     "parser": "@typescript-eslint/parser",
-    "overrides": [
-      {
-        "files": [
-          "*.ts"
-        ]
-      }
-    ],
     "parserOptions": {
       "ecmaVersion": 2019,
       "sourceType": "module",
-      "project": "./tsconfig.json"
+      "project": "**/tsconfig.json"
     },
+
     "plugins": [
       "@typescript-eslint",
       "sonarjs",
