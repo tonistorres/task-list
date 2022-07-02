@@ -6,7 +6,7 @@
 > Um projeto proposto pelo time de carreira da trybe, que visa dar um feedBack profissional a cada participante dessa proposta, de forma termos esse atividade como termômetro para nossa jornada de sucesso como pessoas desenvolvedoras.
 
 #### Contexto do projeto:
->A empresa Ebytr está passando por problemas de produtividade/controle porque as pessoas colaboradoras vêm tendo dificuldade na organização de suas tarefas individuais. Por esse motivo, a diretora de produto Carolina Bigonha decidiu implantar uma nova forma de organizar as tarefas.
+> A empresa Ebytr está passando por problemas de produtividade/controle porque as pessoas colaboradoras vêm tendo dificuldade na organização de suas tarefas individuais. Por esse motivo, a diretora de produto Carolina Bigonha decidiu implantar uma nova forma de organizar as tarefas.
 Você foi a pessoa contratada para desenvolver um sistema capaz de auxiliar as pessoas colaboradoras a se organizar e ter mais produtividade. 
 
 ### Stacks que serão utilizadas pelo time de desenvolvimento:
@@ -71,11 +71,38 @@ Código e componentes reutilizados;
   mkdir task-list
   ```
 
-- [x] - Iniciando um arquivo package.json pois irei fazer o versionamento da aplicação fora das pastas back e front, por esse motivo vou instalar um versionador de commits ( "git-commit-msg-linter": "^4.1.3") e um executável de vários comando simultâneamente (concurrently); 
+- [x] - Iniciando um arquivo package.json pois irei fazer o versionamento da aplicação fora das pastas back e front.
+Neste ponto irei instalar um versionador de menssagens de commits ( "git-commit-msg-linter": "^4.1.3"), e um executável de vários comando simultâneamente (concurrently); 
 
 ```console
 npm init -y
 npm i concurrently
+npm i git-commit-msg-linter -D
+```
+
+
+##### Nota: significado das tags relacionadas ao commit-msg-linter
+
+```console
+type:
+    feat     Adição de funcionalidade.
+    fix      Correção de defeito.
+    docs     Mudança em documentação.
+    style    Mudança de formatação ou estilo, que não afeta a execução do código (espaço, tabulação, etc).
+    refactor Mudança na organização do código, que não afeta o comportamento existente.
+    test     Adição ou mudança de um teste.
+    chore    Adição ou mudança em script de build, que não afeta o código de produção.
+    perf     Mudança de código para melhoria de desempenho.
+    ci       Mudança de configuração de integração contínua.
+    build    Mudança em arquivos de build ou em dependências externas.
+    temp     Commit temporário, que não deve ser incluído no CHANGELOG.
+
+  scope:
+    Opcional, pode ser qualquer coisa que especifique o escopo da mudança.
+    Exemplos: subpacote, workspace, módulo, componente, página.
+
+  subject:
+    Breve resumo da mudança, escrito no tempo verbal presente. Começa com letra minúscula e não há ponto final.
 ```
 
 - [x] - adicionando inicialmente alguns scripts utilitários; 
@@ -124,11 +151,12 @@ touch README.MD
 - [Link GitHub Gabriel Silvestre](https://gist.github.com/gabrielh-silvestre/624a3c6b9de184c1b12572996e3a68a7)
 
 - [x] - Sobre as branchs para o desenvolvimento da aplicação levando em consideração o tamanho do projeto conterá as ramificações abaixo relacionadas;
+##### Nota Sobre à criação das branchs: mesmo tendo escopo definido para o projeto as branchs serão criadas a partir do desenrolar do projeto para facilitar o desenvolvimento.
 
 <ul>
     <li>master</li>
     <li>front-implements-app</li>
-    <li>back-implements-app</li>
+    <li>back-config-initial</li>
 </ul>
 
 - [x] - Criando a pasta back-task-list;
@@ -170,101 +198,210 @@ git push -u origin master
 
 ### 2 - Setup inicial da aplicação(Back-End):
 
-- [x] - Acessar a pasta back-task-list já criada anteriormente;
-
-```console
-cd back-task-list
-```
-
-- [x] - Iniciando o git dentro da pasta back-task-list;
-
-```console
-git init -y
-```
-
-- [x] - Inicializando um arquivo json na raiz de blitz-task-list-trybe;
-
-```console
-npm init -y
-```
-
-- [x] - Instalar o git-commit-msg-linter 
-
-```console
-npm install git-commit-msg-linter --save-dev
-```
-
-- [x] - Fazendo commit das configuraçẽos iniciais básicas
-
-```console
-git add .
-git commit -m""
-git push -u origin master
-```
-
-##### Nota: significado das tags relacionadas ao commit-msg-linter
-
-```console
-type:
-    feat     Adição de funcionalidade.
-    fix      Correção de defeito.
-    docs     Mudança em documentação.
-    style    Mudança de formatação ou estilo, que não afeta a execução do código (espaço, tabulação, etc).
-    refactor Mudança na organização do código, que não afeta o comportamento existente.
-    test     Adição ou mudança de um teste.
-    chore    Adição ou mudança em script de build, que não afeta o código de produção.
-    perf     Mudança de código para melhoria de desempenho.
-    ci       Mudança de configuração de integração contínua.
-    build    Mudança em arquivos de build ou em dependências externas.
-    temp     Commit temporário, que não deve ser incluído no CHANGELOG.
-
-  scope:
-    Opcional, pode ser qualquer coisa que especifique o escopo da mudança.
-    Exemplos: subpacote, workspace, módulo, componente, página.
-
-  subject:
-    Breve resumo da mudança, escrito no tempo verbal presente. Começa com letra minúscula e não há ponto final.
-```
-
-
 - [x] - criando uma branch para configurações gerais:
 
 ```console
 git checkout -b config-gerais
 ```
 
-- [x] Criando uma Pastas back-list-task;
+- [x] - Acessar a pasta back-task-list;
 
 ```console
-mkdir back-list-task
+cd back-task-list
 ```
 
-- [x] - Entrando na pasta;
+- [x] - Iniciando o npm init  que irá apresentar um simples questionário para descrever informações básica de um módulo Node.js, pelo qual seu resultado final é gerar o arquivo package.json.
+dentro da pasta back-task-list, neste caso estamos ignorando o questionario e adicionado um arquivo default;
+- [Fonte de Informação](https://udgwebdev.github.io/customizando-npm-init/)
 
 ```console
-cd back-list-task
+npm init -y
+```
+- [x] - Adicionando alguns alguns arquivos e scripts de configurações no projeto:
+
+###### Nota arquivo package.json:
+
+```json
+{
+    "scripts": {
+    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+    "devDependencies": {
+      "@types/express": "^4.17.13",
+      "@types/node": "^16.11.7",
+      "@typescript-eslint/eslint-plugin": "^5.3.1",
+      "@typescript-eslint/parser": "^5.3.1",
+      "eslint": "^7.32.0",
+      "eslint-config-airbnb-base": "^15.0.0",
+      "eslint-config-airbnb-typescript": "^15.0.0",
+      "eslint-plugin-editorconfig": "^3.2.0",
+      "eslint-plugin-import": "^2.25.3",
+      "eslint-plugin-mocha": "^9.0.0",
+      "eslint-plugin-sonarjs": "^0.10.0",
+      "ts-node": "^10.4.0",
+      "ts-node-dev": "^1.1.8",
+      "typescript": "^4.4.3"
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+      "express-async-errors": "^3.1.1"     
+    }
+  }
+
+
 ```
 
-- [x] - criar arquivo json padrão;
+- [x] - Criando arquivo .eslintrc.json e adicionando configurações;
 
-  ```console
-    npm init -y
-  ```
+```json 
+{
+    "root": true,
+    "env": {
+      "browser": false,
+      "node": true,
+      "es2021": true,
+      "jest": true
+    },
+    "extends": [
+      "plugin:@typescript-eslint/recommended",
+      "airbnb-base",
+      "plugin:editorconfig/noconflict",
+      "plugin:mocha/recommended",
+      "airbnb-typescript/base"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "overrides": [
+      {
+        "files": [
+          "*.ts"
+        ]
+      }
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2019,
+      "sourceType": "module",
+      "project": "./tsconfig.json"
+    },
+    "plugins": [
+      "@typescript-eslint",
+      "sonarjs",
+      "editorconfig",
+      "mocha"
+    ],
+    "rules": {
+      "no-underscore-dangle": "off",
+      "no-console": "off",
+      "camelcase": "warn",
+      "arrow-parens": [
+        2,
+        "always"
+      ],
+      "quotes": [
+        2,
+        "single"
+      ],
+      "implicit-arrow-linebreak": "off",
+      "consistent-return": "off",
+      "no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_",
+          "ignoreRestSiblings": true
+        }
+      ],
+      "object-curly-newline": "off",
+      "max-params": [
+        "error",
+        4
+      ],
+      "max-lines": [
+        "error",
+        250
+      ],
+      "max-lines-per-function": [
+        "error",
+        {
+          "max": 20,
+          "skipBlankLines": true,
+          "skipComments": true
+        }
+      ],
+      "max-len": [
+        "error",
+        {
+          "code": 100
+        },
+        {
+          "ignoreComments": true
+        }
+      ],
+      "complexity": [
+        "error",
+        5
+      ],
+      "import/no-extraneous-dependencies": [
+        "off"
+      ],
+      "sonarjs/cognitive-complexity": [
+        "error",
+        5
+      ],
+      "sonarjs/no-one-iteration-loop": [
+        "error"
+      ],
+      "sonarjs/no-identical-expressions": [
+        "error"
+      ],
+      "sonarjs/no-use-of-empty-return-value": [
+        "error"
+      ],
+      "sonarjs/no-extra-arguments": [
+        "error"
+      ],
+      "sonarjs/no-identical-conditions": [
+        "error"
+      ],
+      "sonarjs/no-collapsible-if": [
+        "error"
+      ],
+      "sonarjs/no-collection-size-mischeck": [
+        "error"
+      ],
+      "sonarjs/no-duplicate-string": [
+        "error"
+      ],
+      "sonarjs/no-duplicated-branches": [
+        "error"
+      ],
+      "sonarjs/no-identical-functions": [
+        "error"
+      ],
+      "sonarjs/no-redundant-boolean": [
+        "error"
+      ],
+      "sonarjs/no-unused-collection": [
+        "error"
+      ],
+      "sonarjs/no-useless-catch": [
+        "error"
+      ],
+      "sonarjs/prefer-object-literal": [
+        "error"
+      ],
+      "sonarjs/prefer-single-boolean-return": [
+        "error"
+      ],
+      "sonarjs/no-inverted-boolean-check": [
+        "error"
+      ]
+    }
+  }
 
-##### Nota: alguns comandos git util no desenvolvimento:
 
-```console
-git status
-git add .
-git commit -m""
-git push
-git push -u origin nome_branch
-git pull
-git log 
-git log --oneline
-git tag "nome_tag" -m"" 
-git tag -a "nome_tag" -m"" id
 ```
+
 
 
 ###  Ferramentas e pacotes que utilizaremos no desenvolvimento da aplicação back-end:
@@ -280,38 +417,62 @@ git tag -a "nome_tag" -m"" id
 - [x] - chai: ^4.3.6; 
 - [x] - sinon: ^13.0.1
 - [x] - "coverage-node": "^6.1.0",
+- [x] - concurrently
 
 ### Instalando Dependências:
 
 > Todos os comando abaixo deverão ser utilizado dentro da pasta back-end.
 
-- [x] - npm i express;
+- [x] - Instalando o express
 - [Link Express ](https://www.npmjs.com/package/express)
 
-- [x] - npm install -D nodemon;
-- [Link Pacote npm Nodemon ](https://duckduckgo.com)
+```console
+npm -i express
+```
 
-  > Obs.: O D MAIÚSCULO é informa que é uma forma contraída de dizer que é uma Dependência de 
-  > Desenvolvimento, ou seja, na hora de subir para a produção essa dependência não tem importancia para 
-  > o bom funcionamento da minha aplicação, essa dependencia é somente para testes no momento do 
-  > desenvolvimento.
 
-- [x] - npm install mysql2
- > Client Utilizado para fazer a conexão de uma palicação Node Com Mysql (connector);
+- [x] - Instalando o pacote concurrently
+- [Link npm pacote](https://www.npmjs.com/package/concurrently)
 
-- [x] - npm install sequelize-cli;
+```console
+npm i concurrently
+```
+
+- [x] - Instalando o connector node/mysql 
+ > Client Utilizado para fazer a conexão de uma aplicação Node Com Mysql (connector);
+
+ ```console
+npm install mysql2
+ ```
+
+- [x] - Instalando o Client do sequelize;
 - [Link Pacote npm Sequelize-Cli ](https://www.npmjs.com/package/sequelize-cli)
 
-- [x] - npm i sequelize;
+```console
+npm install --save-dev sequelize-cli
+```
+
+- [x] - Instalando o ORM sequelize;
 - [Link Sequelize ](https://www.npmjs.com/package/sequelize)
 
-- [x] - npm i cors;
+```console
+npm i sequelize
+```
+
+- [x] - CORS é um pacote node.js para fornecer um middleware Connect/Express que pode ser usado para habilitar CORS com várias opções.
 - [Link Cors ](https://www.npmjs.com/package/cors)
 > o cors ele não é dependência de desenvolvimento, pois, em ambiente de produção ele deve constar na aplicação para fazer a conexão entre back e front.
 
+```console
+npm i cors
+```
 
-- [x] - npm i dotenv
+- [x] - Dotenv é um módulo de dependência zero que carrega variáveis ​​de ambiente de um arquivo .env para process.env. 
  - [Link dotEnv ](https://www.npmjs.com/package/dotenv)
+
+```console
+npm i dotenv
+```
 
 - [x] - npm i body-parser
   > Middleware de análise do corpo do Node.js.
@@ -323,71 +484,6 @@ git tag -a "nome_tag" -m"" id
   > códigos de status http constantes enumerando os códigos de status HTTP.
   > Baseado na API Java Apache HttpStatus.
   - [status-codes](https://www.npmjs.com/package/http-status-codes)
-
-- [x] - npm install eslint --save-dev
-- [Dica de instalação EsLint](https://www.npmjs.com/package/sinon)
-- [Canal do Youtube com Dica Configuração](https://www.youtube.com/watch?v=mj4V_GkGmv4)
-
-##### Configurando esLint back-end:
-
-```console
-npm init @eslint/config
-
-? How would you like to use ESLint? … 
-  To check syntax only
-  To check syntax and find problems
-▸ To check syntax, find problems, and enforce code style
-
-✔ How would you like to use ESLint? · style
-
-? What type of modules does your project use? … 
-  JavaScript modules (import/export)
-▸ CommonJS (require/exports)
-  None of these
-
-✔ How would you like to use ESLint? · style
-✔ What type of modules does your project use? · commonjs
-
-? Which framework does your project use? … 
-  React
-  Vue.js
-▸ None of these
-
-✔ How would you like to use ESLint? · style
-✔ What type of modules does your project use? · commonjs
-✔ Which framework does your project use? · none
-
-? Does your project use TypeScript? ‣ No / Yes
-
-? Where does your code run? …  (Press <space> to select, <a> to toggle all, <i> to invert selection)
-✔   Browser
-✔ ▸ Node
-
-? How would you like to define a style for your project? … 
-▸ Use a popular style guide
-  Answer questions about your style
-
-? Which style guide do you want to follow? … 
-▸ Airbnb: https://github.com/airbnb/javascript
-  Standard: https://github.com/standard/standard
-  Google: https://github.com/google/eslint-config-google
-  XO: https://github.com/xojs/eslint-config-xo
-
-? What format do you want your config file to be in? … 
-▸ JavaScript
-  YAML
-  JSON
-
-eslint-config-airbnb-base@latest eslint@^7.32.0 || ^8.2.0 eslint-plugin-import@^2.25.2
-? Would you like to install them now?  No / ‣ Yes
-
-? Which package manager do you want to use? … 
-▸ npm
-  yarn
-  pnpm
-
-
-```
 
 - [x] - npm install --save-dev chai
 - [Link pacote npm Chai](https://www.npmjs.com/package/chai)
@@ -401,15 +497,6 @@ eslint-config-airbnb-base@latest eslint@^7.32.0 || ^8.2.0 eslint-plugin-import@^
 - [x] - npm install coverage-node --save-dev
 - [Link Pacote npm Sinon](https://www.npmjs.com/package/coverage-node)
 
-
-### Package.json, configurações back-end (Sripts):
- > Configurando o scrip que inicializar nossa aplicação, o arquivo principal da nossa aplicação será server.js
-
- ```javascritp
-"scripts": {
-    "start": "nodemon server.js"
-  },
- ```
 
 ### Criando a estrutura Base de Pasta do Projeto:
 
@@ -449,16 +536,7 @@ eslint-config-airbnb-base@latest eslint@^7.32.0 || ^8.2.0 eslint-plugin-import@^
 
 ### Setup inicial ambiente do Front-End:
 
-- [x] Iremos criar o app utilizando npx create;
-
-###### Nota: dentro da pastas blitz-task-list-trybe utilizar o comando abaixo para inicializar um projeto react.
-
-```console
-npx create-react-app app-task-list
-```
-
-
-### Ferramentas e pacotes que utilizaremos no desenvolvimento da aplicação(Front-End):
+##### Nota Ferramentas e pacotes que utilizaremos no desenvolvimento da aplicação(Front-End):
 
 
 - [x] - axios: ^0.26.1 ;
